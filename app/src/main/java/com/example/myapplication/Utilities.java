@@ -1,4 +1,4 @@
-package com.example.filemanager;
+package com.example.myapplication;
 
 import android.content.Context;
 import android.net.Uri;

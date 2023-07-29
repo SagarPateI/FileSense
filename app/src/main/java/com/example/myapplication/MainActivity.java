@@ -1,7 +1,6 @@
-package com.example.filemanager;
+package com.example.myapplication;
 
 import android.Manifest;
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -11,7 +10,6 @@ import android.os.Environment;
 import android.provider.Settings;
 import android.widget.Toast;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -49,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void requestPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R){
+
             Uri uri = Uri.parse("package:" + BuildConfig.APPLICATION_ID);
             Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION, uri);
             startActivity(intent);

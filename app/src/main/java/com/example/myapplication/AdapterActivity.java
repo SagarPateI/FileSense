@@ -1,36 +1,29 @@
-package com.example.filemanager;
+package com.example.myapplication;
 
-import static android.app.PendingIntent.getActivity;
-
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.text.InputType;
+import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.view.Gravity;
 
-import android.app.AlertDialog;
-import android.text.InputType;
-import android.text.TextUtils;
-import android.widget.EditText;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.io.File;
-import java.io.FileFilter;
 import java.io.IOException;
 import java.util.Arrays;
 
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
-
 public class AdapterActivity extends RecyclerView.Adapter<AdapterActivity.ViewHolder> {
+
     private Context context;
     private File[] filesAndFolders;
     private File mRootFile;
@@ -38,6 +31,7 @@ public class AdapterActivity extends RecyclerView.Adapter<AdapterActivity.ViewHo
     private AlertDialog.Builder builder;
 
     private File mCurrentSelectedFile;
+    private AdapterCallback adapterCallback; // New variable for the callback
 
     public AdapterActivity(Context context, File rootFile, File[] filesAndFolders, StoreCallBack callBack, AlertDialog.Builder B) {
         this.context = context;
@@ -46,6 +40,7 @@ public class AdapterActivity extends RecyclerView.Adapter<AdapterActivity.ViewHo
         this.builder = B;
         this.mRootFile = rootFile;
         this.mCallBack = callBack;
+        this.adapterCallback = adapterCallback; // Initialize the callback
     }
 
     @Override
@@ -115,14 +110,6 @@ public class AdapterActivity extends RecyclerView.Adapter<AdapterActivity.ViewHo
                                         Toast.makeText(context, "File Renamed", Toast.LENGTH_SHORT).show();
                                         //update data
                                         updateData();
-
-                                        /*
-                                        Intent launchIntent = view.getContext().getPackageManager().getLaunchIntentForPackage(view.getContext().getPackageName());
-                                        if (launchIntent != null) {
-                                            launchIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                            view.getContext().startActivity(launchIntent);
-                                        }*/
-
                                     } else {
                                         //try to copy new file
                                         try {
@@ -150,7 +137,6 @@ public class AdapterActivity extends RecyclerView.Adapter<AdapterActivity.ViewHo
                     boolean deleted = selectedFile.delete();
                     if (deleted) {
                         Toast.makeText(context, "DELETED", Toast.LENGTH_SHORT).show();
-                        //view.setVisibility(View.GONE);
                         //update data
                         updateData();
                     }
@@ -215,5 +201,10 @@ public class AdapterActivity extends RecyclerView.Adapter<AdapterActivity.ViewHo
             textView = itemView.findViewById(R.id.file_name_text_view);
             imageView = itemView.findViewById(R.id.icon_view);
         }
+    }
+
+    // AdapterCallback interface
+    public interface AdapterCallback {
+        void moveFileToSelectedFolder();
     }
 }

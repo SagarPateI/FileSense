@@ -1,13 +1,13 @@
-package com.example.filemanager;
+package com.example.myapplication;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.os.Bundle;
+import android.text.format.Formatter;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,6 +19,7 @@ import java.io.File;
 public class StorageActivity extends AppCompatActivity implements StoreCallBack {
     private RecyclerView recyclerView;
     private TextView noFilesText;
+    private TextView storageUsageTextView;
 
     private AdapterActivity mAdapter;
     private File mRootFile;
@@ -32,6 +33,7 @@ public class StorageActivity extends AppCompatActivity implements StoreCallBack 
 
         recyclerView = findViewById(R.id.recycler_view);
         noFilesText = findViewById(R.id.empty_text);
+        storageUsageTextView = findViewById(R.id.storage_usage_text_view);
 
         String path = getIntent().getStringExtra("path");
         mRootFile = new File(path);
@@ -45,6 +47,10 @@ public class StorageActivity extends AppCompatActivity implements StoreCallBack 
             recyclerView.setVisibility(View.VISIBLE);
             setupRecyclerView(mRootFile, filesAndFolders);
         }
+
+        // Calculate and display storage usage for the root folder
+        long rootFolderSize = getFolderSize(mRootFile);
+        storageUsageTextView.setText("Storage Usage: " + formatSize(rootFolderSize));
     }
 
     private void setupRecyclerView(File rootFile, File[] filesAndFolders) {
@@ -52,6 +58,10 @@ public class StorageActivity extends AppCompatActivity implements StoreCallBack 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         mAdapter = new AdapterActivity(getApplicationContext(), rootFile, filesAndFolders, this, builder);
         recyclerView.setAdapter(mAdapter);
+    }
+
+    private String formatSize(long size) {
+        return Formatter.formatFileSize(this, size);
     }
 
     @Override
@@ -76,23 +86,38 @@ public class StorageActivity extends AppCompatActivity implements StoreCallBack 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-        switch (id){
-            case R.id.menu_select:{
-                mAdapter.moveFileToSelectedFolder();
-                //hide menu select
-                mMenuSelect.setVisible(false);
-                break;
-            }
+        if (id == R.id.menu_select) {
+            mAdapter.moveFileToSelectedFolder();
+            // Hide menu select
+            mMenuSelect.setVisible(false);
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
     @Override
     public void onBackPressed() {
-        if(mAdapter != null){
-            if(!mAdapter.goBack(mRootFile)){
+        if (mAdapter != null) {
+            if (!mAdapter.goBack(mRootFile)) {
                 super.onBackPressed();
             }
         }
+    }
+
+    private long getFolderSize(File folder) {
+        long size = 0;
+        if (folder != null && folder.exists()) {
+            File[] files = folder.listFiles();
+            if (files != null) {
+                for (File file : files) {
+                    if (file.isDirectory()) {
+                        size += getFolderSize(file);
+                    } else {
+                        size += file.length();
+                    }
+                }
+            }
+        }
+        return size;
     }
 }

@@ -1,4 +1,4 @@
-package com.example.filemanager;
+package com.example.myapplication;
 
 public interface StoreCallBack {
     void startChooseDestination();
