@@ -2,7 +2,7 @@
 
 ## Welcome to FileSense, the most user-friendly file manager app for Android! 🎉 Organize, navigate, and share your files effortlessly with just a few taps! 📲💼
 
-### Planned Features ✨
+### Planned Features. ✨
 - Easily browse, copy, move, and delete files and folders on your device. 📁🗂️
 - Intuitive user interface for smooth and efficient file management. 🤝📝
 - Quickly search for files by name or extension. 🔍📄
@@ -12,10 +12,48 @@
 - Customize file view with sorting options and file size indicators. 🔄📏
 
 ## Screenshots 📸
-<div style="text-align: center;">
-  <img src="README/1.png" alt="Screenshot 1" style="display: inline-block; width: 45%; padding: 5px;">
-  <img src="README/2.png" alt="Screenshot 2" style="display: inline-block; width: 45%; padding: 5px;">
-</div>
+## Version 1.3
+
+<table style="width: 100%;">
+  <tr>
+    <td style="text-align: center; width: 50%;">
+      <p>There are new "Select" and "Storage Usage" buttons. "Select" takes you back to the storage select screen and "Storage Usage" opens a popup that shows you a breakdown of the system storage.</p>
+      <img src="https://github.com/SagarPateI/FileSense/blob/main/README/6.png" alt="Screenshot 1" width="300" style="padding: 5px;">
+    </td>
+    <td style="text-align: center; width: 50%;">
+      <p>As you can see in this screenshot, the storage usage popup could be quite useful.</p>
+      <img src="https://github.com/SagarPateI/FileSense/blob/main/README/7.png" alt="Screenshot 2" width="300" style="padding: 5px;">
+    </td>
+  </tr>
+</table>
+
+## Version 1.2
+<table style="width: 100%;">
+  <tr>
+    <td style="text-align: center; width: 33%;">
+      <img src="https://github.com/SagarPateI/FileSense/blob/main/README/3.png" alt="Screenshot 1" width="300" style="padding: 5px;">
+    </td>
+    <td style="text-align: center; width: 33%;">
+      <img src="https://github.com/SagarPateI/FileSense/blob/main/README/4.png" alt="Screenshot 2" width="300" style="padding: 5px;">
+    </td>
+    <td style="text-align: center; width: 33%;">
+      <img src="https://github.com/SagarPateI/FileSense/blob/main/README/5.png" alt="Screenshot 3" width="300" style="padding: 5px;">
+    </td>
+  </tr>
+</table>
+
+## Version 1.0
+<table style="width: 100%;">
+  <tr>
+    <td style="text-align: center; width: 50%;">
+      <img src="README/1.png" alt="Screenshot 1" width="300" style="padding: 5px;">
+    </td>
+    <td style="text-align: center; width: 50%;">
+      <img src="README/2.png" alt="Screenshot 2" width="300" style="padding: 5px;">
+    </td>
+  </tr>
+</table>
+
 
 ## Getting Started 🚀
 
