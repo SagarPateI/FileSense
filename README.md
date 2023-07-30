@@ -13,6 +13,7 @@
 
 ## Screenshots 📸
 ## Version 1.3
+
 <table style="width: 100%;">
   <tr>
     <td style="text-align: center; width: 50%;">
