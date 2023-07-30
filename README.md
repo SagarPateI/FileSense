@@ -12,10 +12,47 @@
 - Customize file view with sorting options and file size indicators. 🔄📏
 
 ## Screenshots 📸
-<div style="text-align: center;">
-  <img src="README/1.png" alt="Screenshot 1" style="display: inline-block; width: 45%; padding: 5px;">
-  <img src="README/2.png" alt="Screenshot 2" style="display: inline-block; width: 45%; padding: 5px;">
-</div>
+
+## Version 1.3
+<table style="width: 20%;">
+  <tr>
+    <td style="text-align: center; width: 30%;">
+      <p>There are new "Select" and "Storage Usage" buttons. "Select" takes you back to the storage select screen and "Storage Usage" opens a popup that shows you a breakdown of the system storage.</p>
+      <img src="https://github.com/SagarPateI/FileSense/blob/main/README/6.png" alt="Screenshot 1" style="max-width: 100%; padding: 5px;">
+    </td>
+    <td style="text-align: center; width: 30%;">
+    <p>As you can see in this screenshot, the storage usage popup could be quite useful.</p>
+      <img src="https://github.com/SagarPateI/FileSense/blob/main/README/7.png" alt="Screenshot 2" style="max-width: 100%; padding: 5px;">
+  </tr>
+</table>
+
+## Version 1.2
+<table style="width: 20%;">
+  <tr>
+    <td style="text-align: center; width: 33%;">
+      <img src="https://github.com/SagarPateI/FileSense/blob/main/README/3.png" alt="Screenshot 1" style="max-width: 100%; padding: 5px;">
+    </td>
+    <td style="text-align: center; width: 33%;">
+      <img src="https://github.com/SagarPateI/FileSense/blob/main/README/4.png" alt="Screenshot 2" style="max-width: 100%; padding: 5px;">
+    </td>
+    <td style="text-align: center; width: 33%;">
+      <img src="https://github.com/SagarPateI/FileSense/blob/main/README/5.png" alt="Screenshot 3" style="max-width: 100%; padding: 5px;">
+    </td>
+  </tr>
+</table>
+
+## Version 1.0
+
+<table style="width: 20%;">
+  <tr>
+    <td style="text-align: center; width: 33%;">
+      <img src="README/1.png" alt="Screenshot 1" style="max-width: 100%; padding: 5px;">
+    </td>
+    <td style="text-align: center; width: 33%;">
+      <img src="README/2.png" alt="Screenshot 2" style="max-width: 100%; padding: 5px;">
+    </td>
+  </tr>
+</table>
 
 ## Getting Started 🚀
 
