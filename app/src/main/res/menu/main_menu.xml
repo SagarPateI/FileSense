@@ -6,4 +6,9 @@
         android:title="Select"
         app:showAsAction="always" />
 
+    <item
+        android:id="@+id/menu_storage_usage"
+        android:title="Storage Usage"
+        app:showAsAction="always" />
+
 </menu>

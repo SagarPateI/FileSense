@@ -1,8 +1,11 @@
 package com.example.myapplication;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -110,10 +113,21 @@ public class StorageActivity extends AppCompatActivity implements StoreCallBack 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-        mMenuSelect = menu.findItem(R.id.menu_select);
-        mMenuSelect.setVisible(false);
-        return super.onCreateOptionsMenu(menu);
+        //Inflate the menu; this adds items to the action bar if it is present.
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
+
+        //Add the storage usage item to the menu
+        MenuItem storageUsageItem = menu.findItem(R.id.menu_storage_usage);
+        storageUsageItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                showStorageUsage();
+                return true;
+            }
+        });
+
+        return true;
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -136,6 +150,25 @@ public class StorageActivity extends AppCompatActivity implements StoreCallBack 
                 super.onBackPressed();
             }
         }
+    }
+
+    private void showStorageUsage() {
+        //Inflate the storage_usage.xml layout file
+        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View storageUsageView = inflater.inflate(R.layout.storage_usage, null);
+
+        //Get the storage usage text view
+        TextView storageUsageTextView = storageUsageView.findViewById(R.id.storage_usage_text_view);
+
+        //Set the text of the storage usage text view
+        storageUsageTextView.setText("Total Storage: 100 GB\nUsed Storage: 50 GB\nFree Storage: 50 GB");
+
+        //Show the storage usage view
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setView(storageUsageView);
+        builder.setTitle("Storage Usage");
+        builder.setPositiveButton("OK", null);
+        builder.show();
     }
 
 }
