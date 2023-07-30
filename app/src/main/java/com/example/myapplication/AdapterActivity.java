@@ -33,10 +33,11 @@ public class AdapterActivity extends RecyclerView.Adapter<AdapterActivity.ViewHo
     private File mCurrentSelectedFile;
     private AdapterCallback adapterCallback; // New variable for the callback
 
-    public AdapterActivity(Context context, File rootFile, File[] filesAndFolders, StoreCallBack callBack, AlertDialog.Builder B) {
+    public AdapterActivity(Context context, File rootFile, File[] filesAndFolders, StoreCallBack callBack, androidx.appcompat.app.AlertDialog.Builder builder) {
         this.context = context;
         this.filesAndFolders = filesAndFolders;
         Arrays.sort(this.filesAndFolders);
+        AlertDialog.Builder B = null;
         this.builder = B;
         this.mRootFile = rootFile;
         this.mCallBack = callBack;

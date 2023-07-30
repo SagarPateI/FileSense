@@ -1,22 +1,23 @@
 package com.example.myapplication;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.os.Bundle;
-import android.text.format.Formatter;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.io.File;
 
 public class StorageActivity extends AppCompatActivity implements StoreCallBack {
+    private SearchView searchView;
     private RecyclerView recyclerView;
     private TextView noFilesText;
     private TextView storageUsageTextView;
@@ -25,6 +26,8 @@ public class StorageActivity extends AppCompatActivity implements StoreCallBack 
     private File mRootFile;
 
     private MenuItem mMenuSelect;
+
+    private static final String title_storage = "Storage";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +40,7 @@ public class StorageActivity extends AppCompatActivity implements StoreCallBack 
 
         String path = getIntent().getStringExtra("path");
         mRootFile = new File(path);
+
         File[] filesAndFolders = mRootFile.listFiles();
 
         if (filesAndFolders == null || filesAndFolders.length == 0) {
@@ -49,8 +53,29 @@ public class StorageActivity extends AppCompatActivity implements StoreCallBack 
         }
 
         // Calculate and display storage usage for the root folder
-        long rootFolderSize = getFolderSize(mRootFile);
-        storageUsageTextView.setText("Storage Usage: " + formatSize(rootFolderSize));
+        long rootFolderSize = calculateStorageUsage(mRootFile);
+        if (rootFolderSize != 0) {
+            storageUsageTextView.setText("Storage Usage: " + formatSize(rootFolderSize));
+        } else {
+            storageUsageTextView.setText("Storage Usage: N/A");
+        }
+    }
+
+    private long calculateStorageUsage(File rootFile) {
+        long size = 0;
+        if (rootFile != null && rootFile.exists()) {
+            File[] files = rootFile.listFiles();
+            if (files != null) {
+                for (File file : files) {
+                    if (file.isDirectory()) {
+                        size += calculateStorageUsage(file);
+                    } else {
+                        size += file.length();
+                    }
+                }
+            }
+        }
+        return size;
     }
 
     private void setupRecyclerView(File rootFile, File[] filesAndFolders) {
@@ -60,8 +85,17 @@ public class StorageActivity extends AppCompatActivity implements StoreCallBack 
         recyclerView.setAdapter(mAdapter);
     }
 
+    // This method will format file sizes in kilobytes, megabytes, or gigabytes, depending on their size.
     private String formatSize(long size) {
-        return Formatter.formatFileSize(this, size);
+        if (size < 1024) {
+            return String.valueOf(size);
+        } else if (size < 1048576) {
+            return String.format("%.2fk", size / 1024.0); // 1 k = 1024 bytes
+        } else if (size < 1073741824) {
+            return String.format("%.2fM", size / 1048576.0); // 1 M = 1048576 bytes
+        } else {
+            return String.format("%.2fG", size / 1073741824.0); // 1 GB = 1073741824 bytes
+        }
     }
 
     @Override
@@ -104,20 +138,4 @@ public class StorageActivity extends AppCompatActivity implements StoreCallBack 
         }
     }
 
-    private long getFolderSize(File folder) {
-        long size = 0;
-        if (folder != null && folder.exists()) {
-            File[] files = folder.listFiles();
-            if (files != null) {
-                for (File file : files) {
-                    if (file.isDirectory()) {
-                        size += getFolderSize(file);
-                    } else {
-                        size += file.length();
-                    }
-                }
-            }
-        }
-        return size;
-    }
 }
