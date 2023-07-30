@@ -2,7 +2,9 @@ package com.example.myapplication;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.icu.math.BigDecimal;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,6 +20,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.io.File;
+import java.math.RoundingMode;
 
 public class StorageActivity extends AppCompatActivity implements StoreCallBack {
     private SearchView searchView;
@@ -153,6 +156,16 @@ public class StorageActivity extends AppCompatActivity implements StoreCallBack 
     }
 
     private void showStorageUsage() {
+
+        //Get the total storage
+        long totalStorage = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getTotalSpace();
+
+        //Get the used storage
+        long usedStorage = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getUsableSpace();
+
+        //Get the free storage
+        long freeStorage = totalStorage - usedStorage;
+
         //Inflate the storage_usage.xml layout file
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View storageUsageView = inflater.inflate(R.layout.storage_usage, null);
@@ -160,13 +173,27 @@ public class StorageActivity extends AppCompatActivity implements StoreCallBack 
         //Get the storage usage text view
         TextView storageUsageTextView = storageUsageView.findViewById(R.id.storage_usage_text_view);
 
-        //Set the text of the storage usage text view
-        storageUsageTextView.setText("Total Storage: 100 GB\nUsed Storage: 50 GB\nFree Storage: 50 GB");
+        //Test text for the popup window
+        // storageUsageTextView.setText("Total Storage: 100 GB\nUsed Storage: 50 GB\nFree Storage: 50 GB");
 
-        //Show the storage usage view
+        //Convert the storage usage to gigabytes with more precision
+        BigDecimal totalStorageInGB = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            totalStorageInGB = new BigDecimal(totalStorage).divide(new BigDecimal(1024 * 1024 * 1024), 10, RoundingMode.HALF_UP.ordinal());
+        }
+        BigDecimal usedStorageInGB = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            usedStorageInGB = new BigDecimal(usedStorage).divide(new BigDecimal(1024 * 1024 * 1024), 10, RoundingMode.HALF_UP.ordinal());
+        }
+        BigDecimal freeStorageInGB = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            freeStorageInGB = new BigDecimal(freeStorage).divide(new BigDecimal(1024 * 1024 * 1024), 10, RoundingMode.HALF_UP.ordinal());
+        }
+
+        //Show the storage usage
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setView(storageUsageView);
         builder.setTitle("Storage Usage");
+        builder.setMessage("Total Storage: " + totalStorageInGB + " GB\nUsed Storage: " + usedStorageInGB + " GB\nFree Storage: " + freeStorageInGB + " GB");
         builder.setPositiveButton("OK", null);
         builder.show();
     }
