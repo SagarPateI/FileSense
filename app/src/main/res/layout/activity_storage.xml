@@ -6,13 +6,6 @@
     android:layout_height="wrap_content"
     tools:context=".StorageActivity">
 
-    <SearchView
-    android:id="@+id/search_view"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_centerInParent="true"
-    android:hint="Search for files" />
-
     <TextView
         android:id="@+id/empty_text"
         android:layout_width="wrap_content"
@@ -38,5 +31,11 @@
         android:textAlignment="center"
         android:textColor="@android:color/black"
         android:background="@android:color/white" />
+
+    <SearchView
+        android:id="@+id/search_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" />
 
 </RelativeLayout>
