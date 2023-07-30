@@ -2,7 +2,7 @@
 
 ## Welcome to FileSense, the most user-friendly file manager app for Android! 🎉 Organize, navigate, and share your files effortlessly with just a few taps! 📲💼
 
-### Planned Features ✨
+### Planned Features. ✨
 - Easily browse, copy, move, and delete files and folders on your device. 📁🗂️
 - Intuitive user interface for smooth and efficient file management. 🤝📝
 - Quickly search for files by name or extension. 🔍📄
